@@ -36,13 +36,21 @@ def build_anomaly_watchlist(df: pd.DataFrame, symbol: str, snap_date, spot: floa
     d["spread"] = d["ask"] - d["bid"]
     d["mid"] = (d["ask"] + d["bid"]) / 2.0
 
-    d = d[(d["bid"] >= 0) & (d["ask"] >= d["bid"]) & (d["implied_volatility"] > 0)]
+    # sanity filters (and make sure volume exists / nonnegative)
+    d = d[
+        (d["bid"] >= 0) &
+        (d["ask"] >= d["bid"]) &
+        (d["spread"] >= 0) &
+        (d["volume"].fillna(0) >= 0)
+    ].copy()
 
-    # --- target ---
-    y = d["implied_volatility"]
+    # --- target (volume) ---
+    # model log-volume to reduce heavy-tail / huge outliers dominating
+    d["log_volume"] = np.log1p(d["volume"].fillna(0))
+    y = d["log_volume"]
 
     # --- features ---
-    num_cols = ["log_moneyness", "t", "strike", "spot"]
+    num_cols = ["log_moneyness", "t", "strike", "spot", "spread"]
     cat_cols = ["type"]
 
     pre = ColumnTransformer([
@@ -60,31 +68,34 @@ def build_anomaly_watchlist(df: pd.DataFrame, symbol: str, snap_date, spot: floa
     pipe = Pipeline([("pre", pre), ("model", model)])
     pipe.fit(d[num_cols + cat_cols], y)
 
-    d["iv_pred"] = pipe.predict(d[num_cols + cat_cols])
-    d["iv_resid"] = d["implied_volatility"] - d["iv_pred"]
+    # predictions & residuals in log space
+    d["logvol_pred"] = pipe.predict(d[num_cols + cat_cols])
+    d["logvol_resid"] = d["log_volume"] - d["logvol_pred"]
 
-    # normalize residuals within expiration
-    d["resid_z"] = d.groupby("expiration")["iv_resid"].transform(
+    # normalize residuals within expiration (cross-sectional "spike" vs peers at same expiry)
+    d["resid_z"] = d.groupby("expiration")["logvol_resid"].transform(
         lambda s: (s - s.mean()) / (s.std(ddof=0) + 1e-9)
     )
 
-    # liquidity penalty
+    # liquidity penalty (wide spreads -> harder to trade; downweight those)
     d["liq_penalty"] = np.log1p(d["spread"].clip(lower=0))
-    d["anomaly_score"] = d["resid_z"].abs() - 0.25 * d["liq_penalty"]
 
-    # results
-    cheap = d.sort_values(["resid_z", "spread"], ascending=[True, True]).head(top_n)
-    rich  = d.sort_values(["resid_z", "spread"], ascending=[False, True]).head(top_n)
+    # anomaly score: big positive z = unusually high volume
+    d["anomaly_score"] = d["resid_z"] - 0.25 * d["liq_penalty"]
+
+    # results: top volume spikes (optionally also return "unusually low volume")
+    spikes = d.sort_values(["anomaly_score", "spread"], ascending=[False, True]).head(top_n)
+    duds   = d.sort_values(["anomaly_score", "spread"], ascending=[True, True]).head(top_n)
 
     keep = [
         "contract_id", "symbol", "date", "expiration", "strike", "type",
-        "bid", "ask", "mark", "spread",
-        "implied_volatility", "iv_pred", "iv_resid", "resid_z",
+        "bid", "ask", "mid", "spread",
+        "volume", "log_volume", "logvol_pred", "logvol_resid", "resid_z",
         "delta", "gamma", "theta", "vega", "rho",
         "in_the_money"
     ]
 
-    return cheap[keep], rich[keep]
+    return spikes[keep], duds[keep]
 
 
 # =========================
