@@ -92,7 +92,7 @@ def build_anomaly_watchlist(df: pd.DataFrame, symbol: str, snap_date, spot: floa
 # =========================
 
 # Load data
-df = pd.read_parquet("spy_options.parquet", engine="fastparquet")
+df = pd.read_parquet("options.parquet", engine="fastparquet")
 
 # Normalize date column
 df["date"] = pd.to_datetime(df["date"]).dt.normalize()
@@ -101,12 +101,12 @@ df["date"] = pd.to_datetime(df["date"]).dt.normalize()
 snap_date = df["date"].max()
 print("Using snapshot date:", snap_date.date())
 
-# Manually set spot (replace with real SPY close if you have it)
-spot = 470.25  # <-- CHANGE IF NEEDED
+# Manually set spot (replace with real NVDA close if you have it)
+spot = 140.0  # <-- NVDA price, adjust as needed
 
 cheap, rich = build_anomaly_watchlist(
     df=df,
-    symbol="SPY",
+    symbol="NVDA",
     snap_date=snap_date,
     spot=spot,
     top_n=10
