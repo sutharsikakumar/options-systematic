@@ -1,0 +1,19 @@
+Options Alert Summary  —  20260421
+Tickers:  SPY
+Total alerts (score ≥ 3): 86
+  NEW      : 86
+  RESOLVED : 0
+  PERSISTING: 0
+
+Top 10 Highest-Score Contracts:
+--------------------------------------------------------------
+  SPY   P  K=790.00   exp=2026-05-15  score=4  signals=[surface, pcp_violation, greeks, if]  IV=1.041
+  SPY   C  K=707.00   exp=2026-04-21  score=4  signals=[surface, pcp_violation, greeks, if]  IV=0.090
+  SPY   C  K=709.00   exp=2026-04-21  score=4  signals=[surface, pcp_violation, greeks, if]  IV=0.085
+  SPY   C  K=705.00   exp=2026-04-21  score=4  signals=[surface, pcp_violation, greeks, if]  IV=0.096
+  SPY   P  K=785.00   exp=2026-05-15  score=4  signals=[surface, pcp_violation, greeks, if]  IV=1.020
+  SPY   P  K=360.00   exp=2026-05-15  score=4  signals=[wide_spread, zscore, surface, if]  IV=0.789
+  SPY   P  K=50.00    exp=2027-06-17  score=4  signals=[wide_spread, zscore, pcp_violation, if]  IV=0.793
+  SPY   C  K=110.00   exp=2027-01-15  score=4  signals=[zscore, surface, pcp_violation, if]  IV=1.249
+  SPY   C  K=210.00   exp=2027-12-17  score=3  signals=[surface, pcp_violation, if]  IV=0.000
+  SPY   C  K=280.00   exp=2027-12-17  score=3  signals=[surface, pcp_violation, if]  IV=0.000

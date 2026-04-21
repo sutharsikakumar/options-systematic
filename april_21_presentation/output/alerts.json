@@ -1,0 +1,515 @@
+{
+  "generated_at": "2026-04-21T15:58:09.241856Z",
+  "ticker": "SPY",
+  "pipeline_version": "v2",
+  "total_contracts": 9336,
+  "total_anomalies": 106,
+  "alerts": [
+    {
+      "ticker": "SPY",
+      "quote_date": "2026-04-21",
+      "expiration": "2027-06-17",
+      "strike": 50.0,
+      "option_type": "P",
+      "moneyness": 0.0707,
+      "tte_days": 422,
+      "iv": 0.793,
+      "volume": 8,
+      "open_interest": 506,
+      "composite_score": 4,
+      "signals_fired": [
+        "wide_spread",
+        "zscore",
+        "pcp_violation",
+        "if"
+      ],
+      "delta": -0.0002,
+      "if_score_pct": 0.6285
+    },
+    {
+      "ticker": "SPY",
+      "quote_date": "2026-04-21",
+      "expiration": "2027-01-15",
+      "strike": 110.0,
+      "option_type": "C",
+      "moneyness": 0.1556,
+      "tte_days": 269,
+      "iv": 1.2332,
+      "volume": 50,
+      "open_interest": 0,
+      "composite_score": 4,
+      "signals_fired": [
+        "zscore",
+        "surface",
+        "pcp_violation",
+        "if"
+      ],
+      "delta": 0.9802,
+      "if_score_pct": 1.0
+    },
+    {
+      "ticker": "SPY",
+      "quote_date": "2026-04-21",
+      "expiration": "2026-05-15",
+      "strike": 790.0,
+      "option_type": "P",
+      "moneyness": 1.1176,
+      "tte_days": 24,
+      "iv": 1.0436,
+      "volume": 2,
+      "open_interest": 0,
+      "composite_score": 4,
+      "signals_fired": [
+        "surface",
+        "pcp_violation",
+        "greeks",
+        "if"
+      ],
+      "delta": -0.6067,
+      "if_score_pct": 0.715
+    },
+    {
+      "ticker": "SPY",
+      "quote_date": "2026-04-21",
+      "expiration": "2026-05-15",
+      "strike": 785.0,
+      "option_type": "P",
+      "moneyness": 1.1105,
+      "tte_days": 24,
+      "iv": 1.0229,
+      "volume": 2,
+      "open_interest": 0,
+      "composite_score": 4,
+      "signals_fired": [
+        "surface",
+        "pcp_violation",
+        "greeks",
+        "if"
+      ],
+      "delta": -0.6016,
+      "if_score_pct": 0.7077
+    },
+    {
+      "ticker": "SPY",
+      "quote_date": "2026-04-21",
+      "expiration": "2026-05-15",
+      "strike": 365.0,
+      "option_type": "P",
+      "moneyness": 0.5164,
+      "tte_days": 24,
+      "iv": 0.7734,
+      "volume": 56,
+      "open_interest": 2014,
+      "composite_score": 4,
+      "signals_fired": [
+        "wide_spread",
+        "zscore",
+        "surface",
+        "if"
+      ],
+      "delta": -0.0003,
+      "if_score_pct": 0.6181
+    },
+    {
+      "ticker": "SPY",
+      "quote_date": "2026-04-21",
+      "expiration": "2026-05-15",
+      "strike": 360.0,
+      "option_type": "P",
+      "moneyness": 0.5093,
+      "tte_days": 24,
+      "iv": 0.7891,
+      "volume": 21,
+      "open_interest": 4810,
+      "composite_score": 4,
+      "signals_fired": [
+        "wide_spread",
+        "zscore",
+        "surface",
+        "if"
+      ],
+      "delta": -0.0003,
+      "if_score_pct": 0.6227
+    },
+    {
+      "ticker": "SPY",
+      "quote_date": "2026-04-21",
+      "expiration": "2026-04-21",
+      "strike": 703.0,
+      "option_type": "C",
+      "moneyness": 0.9945,
+      "tte_days": 1,
+      "iv": 0.0874,
+      "volume": 2483,
+      "open_interest": 1609,
+      "composite_score": 3,
+      "signals_fired": [
+        "pcp_violation",
+        "greeks",
+        "if"
+      ],
+      "delta": 0.8904,
+      "if_score_pct": 0.5706
+    },
+    {
+      "ticker": "SPY",
+      "quote_date": "2026-04-21",
+      "expiration": "2027-01-15",
+      "strike": 385.0,
+      "option_type": "C",
+      "moneyness": 0.5446,
+      "tte_days": 269,
+      "iv": 0.0,
+      "volume": 20,
+      "open_interest": 0,
+      "composite_score": 3,
+      "signals_fired": [
+        "surface",
+        "pcp_violation",
+        "if"
+      ],
+      "delta": 0.9905,
+      "if_score_pct": 0.8069
+    },
+    {
+      "ticker": "SPY",
+      "quote_date": "2026-04-21",
+      "expiration": "2027-06-17",
+      "strike": 1340.0,
+      "option_type": "C",
+      "moneyness": 1.8957,
+      "tte_days": 422,
+      "iv": 0.1958,
+      "volume": 1,
+      "open_interest": 812,
+      "composite_score": 3,
+      "signals_fired": [
+        "wide_spread",
+        "pcp_violation",
+        "if"
+      ],
+      "delta": 0.0032,
+      "if_score_pct": 0.5037
+    },
+    {
+      "ticker": "SPY",
+      "quote_date": "2026-04-21",
+      "expiration": "2027-06-17",
+      "strike": 280.0,
+      "option_type": "C",
+      "moneyness": 0.3961,
+      "tte_days": 422,
+      "iv": 0.0,
+      "volume": 1,
+      "open_interest": 1,
+      "composite_score": 3,
+      "signals_fired": [
+        "surface",
+        "pcp_violation",
+        "if"
+      ],
+      "delta": 0.9851,
+      "if_score_pct": 0.5049
+    },
+    {
+      "ticker": "SPY",
+      "quote_date": "2026-04-21",
+      "expiration": "2027-01-15",
+      "strike": 910.0,
+      "option_type": "P",
+      "moneyness": 1.2873,
+      "tte_days": 269,
+      "iv": 0.6255,
+      "volume": 1,
+      "open_interest": 0,
+      "composite_score": 3,
+      "signals_fired": [
+        "surface",
+        "pcp_violation",
+        "if"
+      ],
+      "delta": -0.5537,
+      "if_score_pct": 0.5658
+    },
+    {
+      "ticker": "SPY",
+      "quote_date": "2026-04-21",
+      "expiration": "2027-01-15",
+      "strike": 70.0,
+      "option_type": "P",
+      "moneyness": 0.099,
+      "tte_days": 269,
+      "iv": 0.8809,
+      "volume": 2,
+      "open_interest": 1764,
+      "composite_score": 3,
+      "signals_fired": [
+        "zscore",
+        "pcp_violation",
+        "if"
+      ],
+      "delta": -0.0003,
+      "if_score_pct": 0.6331
+    },
+    {
+      "ticker": "SPY",
+      "quote_date": "2026-04-21",
+      "expiration": "2027-01-15",
+      "strike": 65.0,
+      "option_type": "P",
+      "moneyness": 0.092,
+      "tte_days": 269,
+      "iv": 0.9023,
+      "volume": 3,
+      "open_interest": 229,
+      "composite_score": 3,
+      "signals_fired": [
+        "wide_spread",
+        "zscore",
+        "if"
+      ],
+      "delta": -0.0002,
+      "if_score_pct": 0.6976
+    },
+    {
+      "ticker": "SPY",
+      "quote_date": "2026-04-21",
+      "expiration": "2027-01-15",
+      "strike": 60.0,
+      "option_type": "P",
+      "moneyness": 0.0849,
+      "tte_days": 269,
+      "iv": 0.9219,
+      "volume": 20,
+      "open_interest": 23800,
+      "composite_score": 3,
+      "signals_fired": [
+        "wide_spread",
+        "zscore",
+        "if"
+      ],
+      "delta": -0.0002,
+      "if_score_pct": 0.6693
+    },
+    {
+      "ticker": "SPY",
+      "quote_date": "2026-04-21",
+      "expiration": "2027-01-15",
+      "strike": 55.0,
+      "option_type": "P",
+      "moneyness": 0.0778,
+      "tte_days": 269,
+      "iv": 0.9375,
+      "volume": 10,
+      "open_interest": 5128,
+      "composite_score": 3,
+      "signals_fired": [
+        "wide_spread",
+        "zscore",
+        "if"
+      ],
+      "delta": -0.0002,
+      "if_score_pct": 0.7055
+    },
+    {
+      "ticker": "SPY",
+      "quote_date": "2026-04-21",
+      "expiration": "2027-01-15",
+      "strike": 50.0,
+      "option_type": "P",
+      "moneyness": 0.0707,
+      "tte_days": 269,
+      "iv": 0.9688,
+      "volume": 1,
+      "open_interest": 23723,
+      "composite_score": 3,
+      "signals_fired": [
+        "wide_spread",
+        "zscore",
+        "if"
+      ],
+      "delta": -0.0001,
+      "if_score_pct": 0.7282
+    },
+    {
+      "ticker": "SPY",
+      "quote_date": "2026-04-21",
+      "expiration": "2027-01-15",
+      "strike": 220.0,
+      "option_type": "C",
+      "moneyness": 0.3112,
+      "tte_days": 269,
+      "iv": 0.0,
+      "volume": 2,
+      "open_interest": 3,
+      "composite_score": 3,
+      "signals_fired": [
+        "surface",
+        "pcp_violation",
+        "if"
+      ],
+      "delta": 0.9905,
+      "if_score_pct": 0.4984
+    },
+    {
+      "ticker": "SPY",
+      "quote_date": "2026-04-21",
+      "expiration": "2027-01-15",
+      "strike": 255.0,
+      "option_type": "C",
+      "moneyness": 0.3607,
+      "tte_days": 269,
+      "iv": 0.0,
+      "volume": 2,
+      "open_interest": 2,
+      "composite_score": 3,
+      "signals_fired": [
+        "surface",
+        "pcp_violation",
+        "if"
+      ],
+      "delta": 0.9905,
+      "if_score_pct": 0.5026
+    },
+    {
+      "ticker": "SPY",
+      "quote_date": "2026-04-21",
+      "expiration": "2027-01-15",
+      "strike": 240.0,
+      "option_type": "C",
+      "moneyness": 0.3395,
+      "tte_days": 269,
+      "iv": 0.0,
+      "volume": 5,
+      "open_interest": 4,
+      "composite_score": 3,
+      "signals_fired": [
+        "surface",
+        "pcp_violation",
+        "if"
+      ],
+      "delta": 0.9905,
+      "if_score_pct": 0.5315
+    },
+    {
+      "ticker": "SPY",
+      "quote_date": "2026-04-21",
+      "expiration": "2027-12-17",
+      "strike": 205.0,
+      "option_type": "C",
+      "moneyness": 0.29,
+      "tte_days": 605,
+      "iv": 0.0,
+      "volume": 2,
+      "open_interest": 8,
+      "composite_score": 3,
+      "signals_fired": [
+        "surface",
+        "pcp_violation",
+        "if"
+      ],
+      "delta": 0.9787,
+      "if_score_pct": 0.5251
+    },
+    {
+      "ticker": "SPY",
+      "quote_date": "2026-04-21",
+      "expiration": "2027-01-15",
+      "strike": 215.0,
+      "option_type": "C",
+      "moneyness": 0.3042,
+      "tte_days": 269,
+      "iv": 0.0,
+      "volume": 75,
+      "open_interest": 0,
+      "composite_score": 3,
+      "signals_fired": [
+        "surface",
+        "pcp_violation",
+        "if"
+      ],
+      "delta": 0.9905,
+      "if_score_pct": 0.9386
+    },
+    {
+      "ticker": "SPY",
+      "quote_date": "2026-04-21",
+      "expiration": "2027-01-15",
+      "strike": 210.0,
+      "option_type": "C",
+      "moneyness": 0.2971,
+      "tte_days": 269,
+      "iv": 0.0,
+      "volume": 10,
+      "open_interest": 20,
+      "composite_score": 3,
+      "signals_fired": [
+        "surface",
+        "pcp_violation",
+        "if"
+      ],
+      "delta": 0.9905,
+      "if_score_pct": 0.5093
+    },
+    {
+      "ticker": "SPY",
+      "quote_date": "2026-04-21",
+      "expiration": "2027-01-15",
+      "strike": 205.0,
+      "option_type": "C",
+      "moneyness": 0.29,
+      "tte_days": 269,
+      "iv": 0.0,
+      "volume": 75,
+      "open_interest": 1,
+      "composite_score": 3,
+      "signals_fired": [
+        "surface",
+        "pcp_violation",
+        "if"
+      ],
+      "delta": 0.9905,
+      "if_score_pct": 0.9029
+    },
+    {
+      "ticker": "SPY",
+      "quote_date": "2026-04-21",
+      "expiration": "2027-01-15",
+      "strike": 135.0,
+      "option_type": "C",
+      "moneyness": 0.191,
+      "tte_days": 269,
+      "iv": 1.1056,
+      "volume": 1,
+      "open_interest": 0,
+      "composite_score": 3,
+      "signals_fired": [
+        "surface",
+        "pcp_violation",
+        "if"
+      ],
+      "delta": 0.9783,
+      "if_score_pct": 0.615
+    },
+    {
+      "ticker": "SPY",
+      "quote_date": "2026-04-21",
+      "expiration": "2027-01-15",
+      "strike": 130.0,
+      "option_type": "C",
+      "moneyness": 0.1839,
+      "tte_days": 269,
+      "iv": 1.1287,
+      "volume": 1,
+      "open_interest": 0,
+      "composite_score": 3,
+      "signals_fired": [
+        "surface",
+        "pcp_violation",
+        "if"
+      ],
+      "delta": 0.9787,
+      "if_score_pct": 0.637
+    }
+  ]
+}
