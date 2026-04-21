@@ -8,7 +8,21 @@ from sklearn.impute import SimpleImputer
 from sklearn.ensemble import HistGradientBoostingRegressor
 
 
-def build_anomaly_watchlist(df: pd.DataFrame, symbol: str, snap_date, spot: float, top_n: int = 10):
+def load_options_data(path: str = "spy_options.parquet") -> pd.DataFrame:
+    """Load the parquet dataset and normalize the date column."""
+    df = pd.read_parquet(path, engine="fastparquet")
+    df["date"] = pd.to_datetime(df["date"]).dt.normalize()
+    return df
+
+
+def build_anomaly_watchlist(
+    df: pd.DataFrame,
+    symbol: str,
+    snap_date,
+    spot: float,
+    top_n: int = 10,
+    return_scored_data: bool = False,
+):
     d = df.copy()
 
     # --- types ---
@@ -38,10 +52,10 @@ def build_anomaly_watchlist(df: pd.DataFrame, symbol: str, snap_date, spot: floa
 
     # sanity filters (and make sure volume exists / nonnegative)
     d = d[
-        (d["bid"] >= 0) &
-        (d["ask"] >= d["bid"]) &
-        (d["spread"] >= 0) &
-        (d["volume"].fillna(0) >= 0)
+        (d["bid"] >= 0)
+        & (d["ask"] >= d["bid"])
+        & (d["spread"] >= 0)
+        & (d["volume"].fillna(0) >= 0)
     ].copy()
 
     # --- target (volume) ---
@@ -53,16 +67,18 @@ def build_anomaly_watchlist(df: pd.DataFrame, symbol: str, snap_date, spot: floa
     num_cols = ["log_moneyness", "t", "strike", "spot", "spread"]
     cat_cols = ["type"]
 
-    pre = ColumnTransformer([
-        ("num", SimpleImputer(strategy="median"), num_cols),
-        ("cat", OneHotEncoder(handle_unknown="ignore"), cat_cols)
-    ])
+    pre = ColumnTransformer(
+        [
+            ("num", SimpleImputer(strategy="median"), num_cols),
+            ("cat", OneHotEncoder(handle_unknown="ignore"), cat_cols),
+        ]
+    )
 
     model = HistGradientBoostingRegressor(
         max_depth=6,
         learning_rate=0.08,
         max_iter=300,
-        random_state=42
+        random_state=42,
     )
 
     pipe = Pipeline([("pre", pre), ("model", model)])
@@ -83,48 +99,69 @@ def build_anomaly_watchlist(df: pd.DataFrame, symbol: str, snap_date, spot: floa
     # anomaly score: big positive z = unusually high volume
     d["anomaly_score"] = d["resid_z"] - 0.25 * d["liq_penalty"]
 
-    # results: top volume spikes (optionally also return "unusually low volume")
+    # results: top volume spikes (and unusually low volume)
     spikes = d.sort_values(["anomaly_score", "spread"], ascending=[False, True]).head(top_n)
-    duds   = d.sort_values(["anomaly_score", "spread"], ascending=[True, True]).head(top_n)
+    duds = d.sort_values(["anomaly_score", "spread"], ascending=[True, True]).head(top_n)
 
     keep = [
-        "contract_id", "symbol", "date", "expiration", "strike", "type",
-        "bid", "ask", "mid", "spread",
-        "volume", "log_volume", "logvol_pred", "logvol_resid", "resid_z",
-        "delta", "gamma", "theta", "vega", "rho",
-        "in_the_money"
+        "contract_id",
+        "symbol",
+        "date",
+        "expiration",
+        "t",
+        "strike",
+        "type",
+        "implied_volatility",
+        "bid",
+        "ask",
+        "mid",
+        "spread",
+        "volume",
+        "log_volume",
+        "logvol_pred",
+        "logvol_resid",
+        "resid_z",
+        "anomaly_score",
+        "delta",
+        "gamma",
+        "theta",
+        "vega",
+        "rho",
+        "in_the_money",
     ]
+
+    if return_scored_data:
+        return spikes[keep], duds[keep], d[keep].copy()
 
     return spikes[keep], duds[keep]
 
 
-# =========================
-# RUN THE MODEL
-# =========================
+def run_terminal_report(
+    parquet_path: str = "spy_options.parquet",
+    symbol: str = "SPY",
+    spot: float = 470.25,
+    top_n: int = 10,
+):
+    df = load_options_data(parquet_path)
 
-# Load data
-df = pd.read_parquet("spy_options.parquet", engine="fastparquet")
+    # Automatically use most recent snapshot
+    snap_date = df["date"].max()
+    print("Using snapshot date:", snap_date.date())
 
-# Normalize date column
-df["date"] = pd.to_datetime(df["date"]).dt.normalize()
+    spikes, duds = build_anomaly_watchlist(
+        df=df,
+        symbol=symbol,
+        snap_date=snap_date,
+        spot=spot,
+        top_n=top_n,
+    )
 
-# Automatically use most recent snapshot
-snap_date = df["date"].max()
-print("Using snapshot date:", snap_date.date())
+    print("\n=== UNUSUALLY HIGH VOLUME VS PEERS (TOP SPIKES) ===")
+    print(spikes.to_string(index=False))
 
-# Manually set spot (replace with real SPY close if you have it)
-spot = 470.25  # <-- CHANGE IF NEEDED
+    print("\n=== UNUSUALLY LOW VOLUME VS PEERS (TOP DUDS) ===")
+    print(duds.to_string(index=False))
 
-cheap, rich = build_anomaly_watchlist(
-    df=df,
-    symbol="SPY",
-    snap_date=snap_date,
-    spot=spot,
-    top_n=10
-)
 
-print("\n=== CHEAP VOL (IV unusually LOW vs surface) ===")
-print(cheap.to_string(index=False))
-
-print("\n=== RICH VOL (IV unusually HIGH vs surface) ===")
-print(rich.to_string(index=False))
+if __name__ == "__main__":
+    run_terminal_report()
